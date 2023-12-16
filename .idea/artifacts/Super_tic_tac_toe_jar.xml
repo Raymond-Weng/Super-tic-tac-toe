@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Super-tic-tac-toe:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Super_tic_tac_toe_jar</output-path>
+    <root id="archive" name="Super-tic-tac-toe.jar">
+      <element id="module-output" name="Super-tic-tac-toe" />
+    </root>
+  </artifact>
+</component>
