@@ -166,11 +166,7 @@ public class Main {
                                     for (int tby = 0; tby < 3; tby++) {
                                         for (int tx = 0; tx < 3; tx++) {
                                             for (int ty = 0; ty < 3; ty++) {
-                                                if (done[tbx][tby] || (tbx == x && tby == y && buttons[tbx][tby][tx][ty].getText().isEmpty())) {
-                                                    buttons[tbx][tby][tx][ty].setEnabled(true);
-                                                } else {
-                                                    buttons[tbx][tby][tx][ty].setEnabled(false);
-                                                }
+                                                buttons[tbx][tby][tx][ty].setEnabled(done[tbx][tby] || (tbx == x && tby == y && buttons[tbx][tby][tx][ty].getText().isEmpty()));
                                             }
                                         }
                                     }
