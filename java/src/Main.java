@@ -121,20 +121,20 @@ public class Main {
                                             case 0:
                                                 if ((buttons[bx][by][1][0].getText().equals(player) && buttons[bx][by][0][0].getText().equals(player)) ||
                                                         (buttons[bx][by][1][1].getText().equals(player) && buttons[bx][by][0][2].getText().equals(player)) ||
-                                                        (buttons[bx][by][0][1].getText().equals(player) && buttons[bx][by][0][2].getText().equals(player))) {
+                                                        (buttons[bx][by][2][1].getText().equals(player) && buttons[bx][by][2][2].getText().equals(player))) {
                                                     clean(bx, by);
                                                 }
                                                 break;
                                             case 1:
                                                 if ((buttons[bx][by][1][1].getText().equals(player) && buttons[bx][by][0][1].getText().equals(player)) ||
-                                                        (buttons[bx][by][0][0].getText().equals(player) && buttons[bx][by][0][2].getText().equals(player))) {
+                                                        (buttons[bx][by][2][0].getText().equals(player) && buttons[bx][by][2][2].getText().equals(player))) {
                                                     clean(bx, by);
                                                 }
                                                 break;
                                             case 2:
                                                 if ((buttons[bx][by][1][2].getText().equals(player) && buttons[bx][by][0][2].getText().equals(player)) ||
                                                         (buttons[bx][by][1][1].getText().equals(player) && buttons[bx][by][0][0].getText().equals(player)) ||
-                                                        (buttons[bx][by][0][1].getText().equals(player) && buttons[bx][by][0][0].getText().equals(player))) {
+                                                        (buttons[bx][by][2][1].getText().equals(player) && buttons[bx][by][2][0].getText().equals(player))) {
                                                     clean(bx, by);
                                                 }
                                                 break;
@@ -166,7 +166,7 @@ public class Main {
                                     for (int tby = 0; tby < 3; tby++) {
                                         for (int tx = 0; tx < 3; tx++) {
                                             for (int ty = 0; ty < 3; ty++) {
-                                                buttons[tbx][tby][tx][ty].setEnabled(done[tbx][tby] || (tbx == x && tby == y && buttons[tbx][tby][tx][ty].getText().isEmpty()));
+                                                buttons[tbx][tby][tx][ty].setEnabled((done[x][y] || (tbx == x && tby == y)) && buttons[tbx][tby][tx][ty].getText().isEmpty());
                                             }
                                         }
                                     }
