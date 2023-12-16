@@ -12,12 +12,14 @@ public class Main {
 
     String player;
     boolean[][] done;
+    boolean ended;
 
     public static void main(String[] args) {
         System.out.println("Game start");
         main = new Main();
         main.start();
         main.player = "O";
+        main.ended = false;
         main.done = new boolean[3][3];
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
@@ -162,7 +164,7 @@ public class Main {
                                     panels[bx][by].getComponent(0).setEnabled(false);
                                 }
 
-                                for (int tbx = 0; tbx < 3; tbx++) {
+                                for (int tbx = 0; tbx < 3 && !ended; tbx++) {
                                     for (int tby = 0; tby < 3; tby++) {
                                         for (int tx = 0; tx < 3; tx++) {
                                             for (int ty = 0; ty < 3; ty++) {
@@ -246,20 +248,20 @@ public class Main {
                     case 0:
                         if ((main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals(main.player)) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) ||
                                 (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player)) ||
-                                (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player))) {
+                                (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player))) {
                             end();
                         }
                         break;
                     case 1:
                         if ((main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals(main.player)) ||
-                                (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player))) {
+                                (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player))) {
                             end();
                         }
                         break;
                     case 2:
                         if ((main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player)) ||
                                 (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) ||
-                                (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player))) {
+                                (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player))) {
                             end();
                         }
                         break;
@@ -269,6 +271,16 @@ public class Main {
     }
 
     public void end() {
-        System.out.println(player + " won!");
+        JOptionPane.showMessageDialog(null, player + " won!", "Game ended", JOptionPane.INFORMATION_MESSAGE);
+        ended = true;
+        for (int bx = 0; bx < 3; bx++) {
+            for (int by = 0; by < 3; by++) {
+                for (int x = 0; x < 3; x++) {
+                    for (int y = 0; y < 3; y++) {
+                        main.buttons[bx][by][x][y].setEnabled(false);
+                    }
+                }
+            }
+        }
     }
 }
