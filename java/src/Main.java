@@ -257,7 +257,7 @@ public class Main {
 
                                 player = (player.equals("O")) ? "X" : "O";
                                 if (!ended && ((player.equals("O") && oAI) || (player.equals("X") && xAI))) {
-                                    randomAI();
+                                    powerAI();
                                 }
                             }
                         });
@@ -271,7 +271,7 @@ public class Main {
         jFrame.setTitle("Super tic tac toe");
         jFrame.pack();
         if (oAI) {
-            randomAI();
+            powerAI();
         }
     }
 
@@ -295,8 +295,11 @@ public class Main {
     public void powerAI(){
         block: {
             if (nextPlay[0] == -1) {
-
+                //TODO
+                randomAI();
+                break block;
             } else {
+                //can win
                 boolean chanceToWin = false;
                 switch (nextPlay[0]) {
                     case 0:
@@ -464,7 +467,247 @@ public class Main {
                         }
                     }
                 }
+
+                //can lose
+                boolean[][] canPlay = new boolean[][]{
+                        {true, true, true},
+                        {true, true, true},
+                        {true, true, true}
+                };
+                for(int tx = 0; tx < 3; tx++){
+                    for(int ty = 0; ty < 3; ty++) {
+                        enemy:{
+                            if (!buttons[nextPlay[0]][nextPlay[1]][tx][ty].isEnabled()) {
+                                canPlay[tx][ty] = false;
+                                break enemy;
+                            }
+                            for (int tsx = 0; tsx < 3; tsx++) {
+                                for (int tsy = 0; tsy < 3; tsy++) {
+                                    switch (tsx) {
+                                        case 0:
+                                            switch (tsy) {
+                                                case 0:
+                                                    if (((main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) ||
+                                                            (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            ((main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                                case 1:
+                                                    if ((main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    if ((main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                        case 1:
+                                            switch (tsy) {
+                                                case 0:
+                                                    if ((main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                                case 1:
+                                                    if ((main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    if ((main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                        case 2:
+                                            switch (tsy) {
+                                                case 0:
+                                                    if ((main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                                case 1:
+                                                    if ((main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    if ((main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) ||
+                                                            (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O"))) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals((main.player.equals("O") ? "X" : "O")))) {
+                                                        canPlay[tx][ty] = false;
+                                                        break enemy;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                int count = 0;
+                for(int tx = 0; tx < 3; tx++){
+                    for(int ty = 0; ty < 3; ty++){
+                        count += canPlay[tx][ty] ? 1 : 0;
+                    }
+                }
+                if(count == 0){
+                    randomAI();
+                    break block;
+                }
+                if(count == 1){
+                    for(int tx = 0; tx < 3; tx++){
+                        for(int ty = 0; ty < 3; ty++){
+                            if(canPlay[tx][ty]){
+                                buttons[nextPlay[0]][nextPlay[1]][tx][ty].getActionListeners()[0].actionPerformed(null);
+                                break block;
+                            }
+                        }
+                    }
+                }
+
+                int[][] point = new int[][]{
+                        {0, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                for(int tx = 0; tx < 3; tx++){
+                    for(int ty = 0; ty < 3; ty++){
+                        if(!canPlay[tx][ty]){
+                            point[tx][ty] -= 20;
+                            continue;
+                        }
+                        //can't play -> -20
+
+                        //give a big pressure -> +3
+                        //line -> +4
+                        //block -> +1
+                        //going to line -> +1
+                        //was block without pressure -> -3
+                        //was block with pressure -> -1
+                        //was lined without pressure -> -4
+                        //was lined with pressure -> -1
+
+                        //give a big pressure -> +3
+
+                        //line -> +4
+                        switch (tx) {
+                            case 0:
+                                switch (ty) {
+                                    case 0:
+                                        if (((main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals(main.player)) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player))) ||
+                                                (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player)) ||
+                                                ((main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player)))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                    case 1:
+                                        if ((main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                    case 2:
+                                        if ((main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 1:
+                                switch (ty) {
+                                    case 0:
+                                        if ((main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                    case 1:
+                                        if ((main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals(main.player)) && (main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                    case 2:
+                                        if ((main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (ty) {
+                                    case 0:
+                                        if ((main.done[1][0] && ((JButton) panels[1][0].getComponent(0)).getText().equals(main.player)) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                    case 1:
+                                        if ((main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][1] && ((JButton) panels[0][1].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player)) && (main.done[2][2] && ((JButton) panels[2][2].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                    case 2:
+                                        if ((main.done[1][2] && ((JButton) panels[1][2].getComponent(0)).getText().equals(main.player)) && (main.done[0][2] && ((JButton) panels[0][2].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[1][1] && ((JButton) panels[1][1].getComponent(0)).getText().equals(main.player)) && (main.done[0][0] && ((JButton) panels[0][0].getComponent(0)).getText().equals(main.player)) ||
+                                                (main.done[2][1] && ((JButton) panels[2][1].getComponent(0)).getText().equals(main.player)) && (main.done[2][0] && ((JButton) panels[2][0].getComponent(0)).getText().equals(main.player))) {
+                                            point[tx][ty]+=4;
+                                        }
+                                        break;
+                                }
+                                break;
+                        }
+
+                        //block -> +1
+
+                        //going to line -> +1
+
+                        //was block without pressure -> -3
+
+                        //was block with pressure -> -1
+
+                        //was lined without pressure -> -4
+
+                        //was lined with pressure -> -1
+
+                    }
+                }
             }
+            randomAI();
         }
     }
 
