@@ -592,6 +592,10 @@ public class Main {
                     }
                 }
 
+                //kill in next play
+
+                //can not decide yet
+
                 int[][] point = new int[][]{
                         {0, 0, 0},
                         {0, 0, 0},
