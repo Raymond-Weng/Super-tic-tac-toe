@@ -1,3 +1,9 @@
 # Super-tic-tac-toe
-A little game  
-Note: the game is NOT my idea, I just implement it and try to add an AI for it. Here is the link to [original game](https://www.geogebra.org/m/aghraxfy)
+[original game](https://www.geogebra.org/m/aghraxfy)
+
+# Feature
+- Highlight the places you can play at
+- AI that play its step ramdomly
+
+# Game Play
+![](https://github.com/Raymond-Weng/Super-tic-tac-toe/blob/main/GamePlay.png?raw=true)
